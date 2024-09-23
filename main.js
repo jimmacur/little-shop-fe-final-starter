@@ -38,10 +38,12 @@ let merchants;
 let items;
 
 //Page load data fetching
-Promise.all([fetchData('merchants'), fetchData('items')])
+Promise.all([fetchData('merchants'), fetchData('items'), fetchData('coupons')])
 .then(responses => {
     merchants = responses[0].data
     items = responses[1].data
+    coupons = responses[2].data
+
     displayMerchants(merchants)
   })
   .catch(err => {
