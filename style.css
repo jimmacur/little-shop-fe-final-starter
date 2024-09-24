@@ -34,6 +34,11 @@ button {
   transition: background-color 0.3s ease;
 }
 
+.coupon button:hover {
+  background-color: var(--beige);
+  color: var(--blue);
+}
+
 input {
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -132,7 +137,7 @@ h3 {
 }
 
 /* MERCHANT + ITEM CARDS */
-.merchant, .item {
+.merchant, .item, .coupon {
   align-items: center;
   background-color: #fff;
   border-radius: 8px;
@@ -143,25 +148,40 @@ h3 {
   padding: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
+.coupon:hover,
 .merchant:hover,
 .item:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   transform: translateY(-5px);
 }
 
+.coupons-view,
 .items-view {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
+.coupon,
 .item {
+  display: flex;
   flex-direction: column;
   text-align: center;
   width: 30%;
+  flex: 1 1 300px;
+  max-width: 350px;
+  min-width: 200px;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 20px;
 }
 
+.coupon button {
+  margin-top: 10px;
+}
+
+.coupon p,
+.coupon h3,
 .item p,
 .item h2 {
   margin: 5px;
