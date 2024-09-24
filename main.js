@@ -235,23 +235,35 @@ function displayMerchantItems(event) {
 }
 
 function getMerchantCoupons(event) {
-  let merchantId = event.target.closest("article").id.split('-')[1]
-  console.log("Merchant ID:", merchantId)
+  let merchantId = event.target.closest("article").id.split('-')[1];
+  console.log("Merchant ID:", merchantId);
 
-  fetchData(`merchants/${merchantId}`)
-  .then(couponData => {
-    console.log("Coupon data from fetch:", couponData)
-    displayMerchantCoupons(couponData);
-  })
+  fetchData(`merchants/${merchantId}/coupons`)
+    .then(response => {
+      let couponData = response.data;
+      console.log("Coupon data from fetch:", couponData);
+      displayMerchantCoupons(couponData);
+    })
 }
 
 function displayMerchantCoupons(coupons) {
   show([couponsView])
   hide([merchantsView, itemsView])
 
-  couponsView.innerHTML = `
-    <p>Coupon data will go here.</p>
-  `
+  couponsView.innerHTML = '';
+
+  coupons.forEach(coupon => {
+    couponsView.innerHTML += `
+      <article class="coupon" id="coupon-${coupon.id}">
+        <h3>${coupon.attributes.name}</h3>
+        <p>Code: ${coupon.attributes.code}</p>
+        <p>Discount: ${coupon.attributes.discount_type === 'percentage' ? coupon.attributes.discount + '%' : '$' + coupon.attributes.discount}</p>
+        <p>Status: ${coupon.attributes.status}</p>
+        <button class="apply-coupon" data-coupon-id="${coupon.id}">Apply Coupon</button>
+        <button class="remove-coupon" data-coupon-id="${coupon.id}">Remove Coupon</button>
+      </article>
+    `;
+  });
 }
 
 //Helper Functions
