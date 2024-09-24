@@ -38,14 +38,13 @@ let merchants;
 let items;
 
 //Page load data fetching
-Promise.all([fetchData('merchants'), fetchData('items'), fetchData('coupons')])
+Promise.all([fetchData('merchants'), fetchData('items')])
 .then(responses => {
-    merchants = responses[0].data
-    items = responses[1].data
-    coupons = responses[2].data
-
-    displayMerchants(merchants)
-  })
+    console.log('API Responses:', responses); // Log the raw responses
+    merchants = responses[0].data;
+    items = responses[1].data;
+    displayMerchants(merchants);
+})
   .catch(err => {
     console.log('catch error: ', err)
   })
