@@ -16,6 +16,8 @@ const merchantForm = document.querySelector("#new-merchant-form")
 const newMerchantName = document.querySelector("#new-merchant-name")
 const submitMerchantButton = document.querySelector("#submit-merchant")
 
+
+
 // Event Listeners
 merchantsView.addEventListener('click', (event) => {
   handleMerchantClicks(event)
@@ -23,6 +25,7 @@ merchantsView.addEventListener('click', (event) => {
 
 merchantsNavButton.addEventListener('click', showMerchantsView)
 itemsNavButton.addEventListener('click', showItemsView)
+couponsView.addEventListener('click', showMerchantCouponsView)
 
 addNewButton.addEventListener('click', () => {
   hide([addNewButton])
@@ -166,6 +169,14 @@ function showMerchantItemsView(id, items) {
   displayItems(items)
 }
 
+function showMerchantCouponsView(id, coupons) {
+  showingText.innerText = `All Coupons for Merchant #${id}`
+  show([couponsView])
+  hide([merchantsView, itemsView, addNewButton])
+  addRemoveActiveNav(itemsNavButton, merchantsNavButton)
+  displayMerchantCoupons(coupons)
+}
+
 // Functions that add data to the DOM
 function displayItems(items) {
   itemsView.innerHTML = ''
@@ -246,9 +257,6 @@ function getMerchantCoupons(event) {
 }
 
 function displayMerchantCoupons(coupons) {
-  show([couponsView])
-  hide([merchantsView, itemsView])
-
   couponsView.innerHTML = '';
 
   coupons.forEach(coupon => {
@@ -266,27 +274,28 @@ function displayMerchantCoupons(coupons) {
     `;
   });
 
-  couponsView.addEventListener('click', function(event) {
-    if (event.target.matches('.activate-coupon')) {
-      const couponId = event.target.getAttribute('data-coupon-id');
-      activateCoupon(couponId);
-    } 
+  // couponsView.addEventListener('click', function(event) {
+  //   if (event.target.matches('.activate-coupon')) {
+  //     const couponId = event.target.getAttribute('data-coupon-id');
+  //     activateCoupon(couponId);
+  //   } 
     
-    else if (event.target.matches('.deactivate-coupon')) {
-      const couponId = event.target.getAttribute('data-coupon-id');
-      deactivateCoupon(couponId);
-    }
-  });
+  //   else if (event.target.matches('.deactivate-coupon')) {
+  //     const couponId = event.target.getAttribute('data-coupon-id');
+  //     deactivateCoupon(couponId);
+  //   }
+  // });
 }
 
 //Helper Functions
-function activateCoupon(couponId) {
-  console.log(`Activating coupon with ID: ${couponId}`);
-}
 
-function deactivateCoupon(couponId) {
-  console.log(`Deactivating coupon with ID: ${couponId}`);
-}
+// function activateCoupon(couponId) {
+//   console.log(`Activating coupon with ID: ${couponId}`);
+// }
+
+// function deactivateCoupon(couponId) {
+//   console.log(`Deactivating coupon with ID: ${couponId}`);
+// }
 
 
 function show(elements) {
