@@ -16,6 +16,8 @@ const merchantForm = document.querySelector("#new-merchant-form")
 const newMerchantName = document.querySelector("#new-merchant-name")
 const submitMerchantButton = document.querySelector("#submit-merchant")
 
+
+
 // Event Listeners
 merchantsView.addEventListener('click', (event) => {
   handleMerchantClicks(event)
@@ -23,6 +25,7 @@ merchantsView.addEventListener('click', (event) => {
 
 merchantsNavButton.addEventListener('click', showMerchantsView)
 itemsNavButton.addEventListener('click', showItemsView)
+
 
 addNewButton.addEventListener('click', () => {
   hide([addNewButton])
@@ -38,14 +41,13 @@ let merchants;
 let items;
 
 //Page load data fetching
-Promise.all([fetchData('merchants'), fetchData('items'), fetchData('coupons')])
+Promise.all([fetchData('merchants'), fetchData('items')])
 .then(responses => {
-    merchants = responses[0].data
-    items = responses[1].data
-    coupons = responses[2].data
-
-    displayMerchants(merchants)
-  })
+    console.log('API Responses:', responses); // Log the raw responses
+    merchants = responses[0].data;
+    items = responses[1].data;
+    displayMerchants(merchants);
+})
   .catch(err => {
     console.log('catch error: ', err)
   })
@@ -167,6 +169,13 @@ function showMerchantItemsView(id, items) {
   displayItems(items)
 }
 
+function showMerchantCouponsView(id, coupons) {
+  showingText.innerText = `All Coupons for Merchant #${id}`
+  show([couponsView])
+  hide([merchantsView, itemsView, addNewButton])
+  displayMerchantCoupons(coupons)
+}
+
 // Functions that add data to the DOM
 function displayItems(items) {
   itemsView.innerHTML = ''
@@ -229,7 +238,9 @@ function displayAddedMerchant(merchant) {
 }
 
 function displayMerchantItems(event) {
+  console.log("getMerchantCoupons triggered");
   let merchantId = event.target.closest("article").id.split('-')[1]
+  console.log("Merchant ID:", merchantId);
   const filteredMerchantItems = filterByMerchant(merchantId)
   showMerchantItemsView(merchantId, filteredMerchantItems)
 }
@@ -242,14 +253,11 @@ function getMerchantCoupons(event) {
     .then(response => {
       let couponData = response.data;
       console.log("Coupon data from fetch:", couponData);
-      displayMerchantCoupons(couponData);
+      showMerchantCouponsView(merchantId, couponData);
     })
 }
 
 function displayMerchantCoupons(coupons) {
-  show([couponsView])
-  hide([merchantsView, itemsView])
-
   couponsView.innerHTML = '';
 
   coupons.forEach(coupon => {
@@ -263,32 +271,15 @@ function displayMerchantCoupons(coupons) {
         ${coupon.attributes.active ? 
           `<button class="deactivate-coupon" data-coupon-id="${coupon.id}">Deactivate Coupon</button>` :
           `<button class="activate-coupon" data-coupon-id="${coupon.id}">Activate Coupon</button>` }
+        <label for="invoice-select-${coupon.id}">Apply to Invoice:</label>
+        <input type="text" id="invoice-input-${coupon.id}" class="invoice-input" placeholder="Invoice #">
+        <button class="apply-coupon" data-coupon-id="${coupon.id}" data-coupon-code="${coupon.attributes.code}">Apply Coupon</button>
       </article>
     `;
-  });
-
-  couponsView.addEventListener('click', function(event) {
-    if (event.target.matches('.activate-coupon')) {
-      const couponId = event.target.getAttribute('data-coupon-id');
-      activateCoupon(couponId);
-    } 
-    
-    else if (event.target.matches('.deactivate-coupon')) {
-      const couponId = event.target.getAttribute('data-coupon-id');
-      deactivateCoupon(couponId);
-    }
   });
 }
 
 //Helper Functions
-function activateCoupon(couponId) {
-  console.log(`Activating coupon with ID: ${couponId}`);
-}
-
-function deactivateCoupon(couponId) {
-  console.log(`Deactivating coupon with ID: ${couponId}`);
-}
-
 
 function show(elements) {
   elements.forEach(element => {
