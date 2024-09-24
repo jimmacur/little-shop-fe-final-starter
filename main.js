@@ -271,6 +271,9 @@ function displayMerchantCoupons(coupons) {
         ${coupon.attributes.active ? 
           `<button class="deactivate-coupon" data-coupon-id="${coupon.id}">Deactivate Coupon</button>` :
           `<button class="activate-coupon" data-coupon-id="${coupon.id}">Activate Coupon</button>` }
+        <label for="invoice-select-${coupon.id}">Apply to Invoice:</label>
+        <input type="text" id="invoice-input-${coupon.id}" class="invoice-input" placeholder="Invoice #">
+        <button class="apply-coupon" data-coupon-id="${coupon.id}" data-coupon-code="${coupon.attributes.code}">Apply Coupon</button>
       </article>
     `;
   });
