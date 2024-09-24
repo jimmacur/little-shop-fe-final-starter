@@ -260,8 +260,9 @@ function displayMerchantCoupons(coupons) {
         <p>Code: ${coupon.attributes.code}</p>
         <p>Discount: ${coupon.attributes.discount_type === 'percentage' ? coupon.attributes.discount_value + '%' : '$' + parseFloat(coupon.attributes.discount_value).toFixed(2)}</p>
         <p>Status: ${coupon.attributes.active ? 'Active' : 'Inactive'}</p>
-        <button class="apply-coupon" data-coupon-id="${coupon.id}">Apply Coupon</button>
-        <button class="remove-coupon" data-coupon-id="${coupon.id}">Remove Coupon</button>
+        ${coupon.attributes.active ? 
+          `<button class="activate-coupon" data-coupon-id="${coupon.id}">Activate Coupon</button>` :
+          `<button class="deactivate-coupon" data-coupon-id="${coupon.id}">Deactivate Coupon</button>` }
       </article>
     `;
   });

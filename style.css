@@ -34,6 +34,11 @@ button {
   transition: background-color 0.3s ease;
 }
 
+.coupon button:hover {
+  background-color: var(--beige);
+  color: var(--blue);
+}
+
 input {
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -172,7 +177,7 @@ h3 {
 }
 
 .coupon button {
-  margin-top: 10px; /* Adjust this value as needed */
+  margin-top: 10px;
 }
 
 .coupon p,
