@@ -1,47 +1,53 @@
-# Little Shop - Coupon Codes | Final Project | Frontend Starter Repo
 
-This Vite Little Shop - Coupon Codes FE Final Project Boilerplate is built to consume and display the data from the BE Rails API built in the Mod 2 Final Project.  
+# Little Shop
 
-## Set Up Instructions
+[Little Shop FE Repo](https://github.com/jimmacur/little-shop-fe-final-starter)
 
-**Note:** Do **not** clone this repo into your backend repo. Put it somewhere else as a stand alone. The BE and FE repos will remain two separate repos and you will submit the links to each.  
-
-1. Fork repo
-1. Clone forked repo and rename it `git clone <repo> <new name>`
-1. `cd` into cloned repo
-1. Run `npm install`
-1. Run `npm run dev` to start developing.
-  1. You'll see in the terminal that the project has opened at "http://localhost:5173/"
-
-## Notes
-
-This FE application is build to consume the data from your Rails API.  In order for it to work, you must have your Rails API running on localhost:3000. You will see fetch errors when running the FE without the BE API up and running.  
-
-Follow the directions in the FE requirements portion of the Little Shop Coupon Codes final project spec. When you are finished with the FE work, update this README to remove the current content and follow the template below.  
-
-______________________________________________________  
-# README Template  
-Before turning this project in, erase this line and everything above it and fill in the info below.  
-______________________________________________________  
-
-# Hang in There  
-
-Link to your GitHub. Consider also providing LinkedIn link
+[Jim Macur LinkedIn](https://www.linkedin.com/in/jimmacur/)
 
 ### Abstract:
-(Briefly describe what you built and its features. What problem is the app solving? How does this application solve that problem?)
+The Little Shop FE is a user interface that allows merchants to manage their coupons. Features include viewing a list of all coupons, activating and deactivating coupons, and applying coupons to specific invoices. The app solves the problem of manually tracking and managing discount codes, making it easier for merchants to handle promotions. By providing interactive buttons and inputs for activation and invoice assignment, the application streamlines the coupon management process, improving efficiency for merchants.
 
 ### Installation Instructions:
-(What steps does a person have to take to get your app cloned down and running?)
+
+1. Fork this backend repo 
+[Little Shop BE Repo](https://github.com/jimmacur/little-shop-be-final-starter)
+1. Run these commands in your terminal
+  - `bundle install`
+  -  `rails db:{drop,create}`
+  -  `rails runner ActiveRecord::Tasks::DatabaseTasks.load_seed`
+  -  `rails db:migrate`
+  -  `rails db:schema:dump`
+  -  `rails s`
+
+
+3. Fork this repo
+
+[Little Shop FE Repo](https://github.com/jimmacur/little-shop-fe-final-starter)
+
+4. Clone forked repo and rename it `git clone <repo> <new name>`
+5. `cd` into cloned repo
+6. Run `npm install`
+7. Run `npm run dev`
+  - You'll see in the terminal that the project has opened at "http://localhost:5173/"
 
 ### Preview of App:
-(Provide ONE gif or screenshot of your application - choose the "coolest" piece of functionality to show off. gifs preferred!)
+<img src="LittleShop.png" alt="Little Shop" width="700" />
 
 ### Context:
-(Give some context for the project here. How long did you have to work on it? What specific work/improvements did you contribute to this FE application?)
+This was a solo project that included FE and BE development. Both the BE and FE had repos I was building off of. In both cases my ork was around adding functionality, display, and logic for coupons as well as invoices.
 
 ### Learning Goals:
-(What were the learning goals of this project? What tech did you work with?)
+- Write migrations to create tables and relationships between tables
+- Implement CRUD functionality for a resource
+- Use MVC to organize code effectively, limiting the amount of logic included in serializers and controllers
+- Use built-in ActiveRecord methods to join tables of data, make calculations, and group data based on one or more attributes
+- Write model tests that fully cover the data logic of the application
+- Write request tests that fully cover the functionality of the application
+- Display data for users in a frontend application by targeting DOM elements
 
 ### Wins + Challenges:
-(What are 2-3 wins you have from this project? What were some challenges you faced - and how did you get over them?)
+- I am very pleased with getting the styling to match the original and also improving the flex box on the entire application to make it more user friendly. 
+- I also think that the selection of elements to be displayed really considers what the user will need and displays it in a way that is easy to understand.
+- If given more time I would have given more functionality to the buttons, added an area to display invoices, and made a more dynamic relationship between those and the merchant
+- In hindsight, I also wish I spent more time exploring the existing code as I tried to recreate the wheel only to din later that there was a lot of functionality already built in that I could use. There were also similar functions that could be mimicked in order to streamline the process of writing the new functions.
