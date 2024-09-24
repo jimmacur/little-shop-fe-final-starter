@@ -174,13 +174,13 @@ function displayItems(items) {
   firstHundredItems.forEach(item => {
     let merchant = findMerchant(item.attributes.merchant_id).attributes.name
     itemsView.innerHTML += `
-     <article class="item" id="item-${item.id}">
-          <img src="" alt="">
-          <h2>${item.attributes.name}</h2>
-          <p>${item.attributes.description}</p>
-          <p>$${item.attributes.unit_price}</p>
-          <p class="merchant-name-in-item">Merchant: ${merchant}</p>
-        </article>
+      <article class="item" id="item-${item.id}">
+        <img src="" alt="">
+        <h2>${item.attributes.name}</h2>
+        <p>${item.attributes.description}</p>
+        <p>$${item.attributes.unit_price}</p>
+        <p class="merchant-name-in-item">Merchant: ${merchant}</p>
+      </article>
     `
   })
 }
@@ -261,14 +261,35 @@ function displayMerchantCoupons(coupons) {
         <p>Discount: ${coupon.attributes.discount_type === 'percentage' ? coupon.attributes.discount_value + '%' : '$' + parseFloat(coupon.attributes.discount_value).toFixed(2)}</p>
         <p>Status: ${coupon.attributes.active ? 'Active' : 'Inactive'}</p>
         ${coupon.attributes.active ? 
-          `<button class="activate-coupon" data-coupon-id="${coupon.id}">Activate Coupon</button>` :
-          `<button class="deactivate-coupon" data-coupon-id="${coupon.id}">Deactivate Coupon</button>` }
+          `<button class="deactivate-coupon" data-coupon-id="${coupon.id}">Deactivate Coupon</button>` :
+          `<button class="activate-coupon" data-coupon-id="${coupon.id}">Activate Coupon</button>` }
       </article>
     `;
+  });
+
+  couponsView.addEventListener('click', function(event) {
+    if (event.target.matches('.activate-coupon')) {
+      const couponId = event.target.getAttribute('data-coupon-id');
+      activateCoupon(couponId);
+    } 
+    
+    else if (event.target.matches('.deactivate-coupon')) {
+      const couponId = event.target.getAttribute('data-coupon-id');
+      deactivateCoupon(couponId);
+    }
   });
 }
 
 //Helper Functions
+function activateCoupon(couponId) {
+  console.log(`Activating coupon with ID: ${couponId}`);
+}
+
+function deactivateCoupon(couponId) {
+  console.log(`Deactivating coupon with ID: ${couponId}`);
+}
+
+
 function show(elements) {
   elements.forEach(element => {
     element.classList.remove('hidden')
