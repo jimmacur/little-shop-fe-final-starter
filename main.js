@@ -173,7 +173,6 @@ function showMerchantCouponsView(id, coupons) {
   showingText.innerText = `All Coupons for Merchant #${id}`
   show([couponsView])
   hide([merchantsView, itemsView, addNewButton])
-  addRemoveActiveNav(itemsNavButton, merchantsNavButton)
   displayMerchantCoupons(coupons)
 }
 
@@ -239,7 +238,9 @@ function displayAddedMerchant(merchant) {
 }
 
 function displayMerchantItems(event) {
+  console.log("getMerchantCoupons triggered");
   let merchantId = event.target.closest("article").id.split('-')[1]
+  console.log("Merchant ID:", merchantId);
   const filteredMerchantItems = filterByMerchant(merchantId)
   showMerchantItemsView(merchantId, filteredMerchantItems)
 }
@@ -252,8 +253,12 @@ function getMerchantCoupons(event) {
     .then(response => {
       let couponData = response.data;
       console.log("Coupon data from fetch:", couponData);
-      displayMerchantCoupons(couponData);
+      showMerchantCouponsView(merchantId, couponData);
     })
+
+    .catch(error => {
+      console.error("Error fetching merchant coupons:", error);
+    });
 }
 
 function displayMerchantCoupons(coupons) {
@@ -274,28 +279,28 @@ function displayMerchantCoupons(coupons) {
     `;
   });
 
-  // couponsView.addEventListener('click', function(event) {
-  //   if (event.target.matches('.activate-coupon')) {
-  //     const couponId = event.target.getAttribute('data-coupon-id');
-  //     activateCoupon(couponId);
-  //   } 
+  couponsView.addEventListener('click', function(event) {
+    if (event.target.matches('.activate-coupon')) {
+      const couponId = event.target.getAttribute('data-coupon-id');
+      activateCoupon(couponId);
+    } 
     
-  //   else if (event.target.matches('.deactivate-coupon')) {
-  //     const couponId = event.target.getAttribute('data-coupon-id');
-  //     deactivateCoupon(couponId);
-  //   }
-  // });
+    else if (event.target.matches('.deactivate-coupon')) {
+      const couponId = event.target.getAttribute('data-coupon-id');
+      deactivateCoupon(couponId);
+    }
+  });
 }
 
 //Helper Functions
 
-// function activateCoupon(couponId) {
-//   console.log(`Activating coupon with ID: ${couponId}`);
-// }
+function activateCoupon(couponId) {
+  console.log(`Activating coupon with ID: ${couponId}`);
+}
 
-// function deactivateCoupon(couponId) {
-//   console.log(`Deactivating coupon with ID: ${couponId}`);
-// }
+function deactivateCoupon(couponId) {
+  console.log(`Deactivating coupon with ID: ${couponId}`);
+}
 
 
 function show(elements) {
