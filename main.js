@@ -258,7 +258,7 @@ function displayMerchantCoupons(coupons) {
       <article class="coupon" id="coupon-${coupon.id}">
         <h3>${coupon.attributes.name}</h3>
         <p>Code: ${coupon.attributes.code}</p>
-        <p>Discount: ${coupon.attributes.discount_type === 'percentage' ? coupon.attributes.discount_value + '%' : '$' + coupon.attributes.discount_value}</p>
+        <p>Discount: ${coupon.attributes.discount_type === 'percentage' ? coupon.attributes.discount_value + '%' : '$' + parseFloat(coupon.attributes.discount_value).toFixed(2)}</p>
         <p>Status: ${coupon.attributes.active ? 'Active' : 'Inactive'}</p>
         <button class="apply-coupon" data-coupon-id="${coupon.id}">Apply Coupon</button>
         <button class="remove-coupon" data-coupon-id="${coupon.id}">Remove Coupon</button>
