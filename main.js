@@ -253,12 +253,13 @@ function displayMerchantCoupons(coupons) {
   couponsView.innerHTML = '';
 
   coupons.forEach(coupon => {
+    console.log(coupon);
     couponsView.innerHTML += `
       <article class="coupon" id="coupon-${coupon.id}">
         <h3>${coupon.attributes.name}</h3>
         <p>Code: ${coupon.attributes.code}</p>
-        <p>Discount: ${coupon.attributes.discount_type === 'percentage' ? coupon.attributes.discount + '%' : '$' + coupon.attributes.discount}</p>
-        <p>Status: ${coupon.attributes.status}</p>
+        <p>Discount: ${coupon.attributes.discount_type === 'percentage' ? coupon.attributes.discount_value + '%' : '$' + coupon.attributes.discount_value}</p>
+        <p>Status: ${coupon.attributes.active ? 'Active' : 'Inactive'}</p>
         <button class="apply-coupon" data-coupon-id="${coupon.id}">Apply Coupon</button>
         <button class="remove-coupon" data-coupon-id="${coupon.id}">Remove Coupon</button>
       </article>
